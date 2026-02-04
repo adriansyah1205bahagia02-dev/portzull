@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videografi - Portfolio Ijul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dkv.css">
+</head>
+<body>
+    <!-- Header dan Navigasi -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="Logo Sistem/logo new.png" alt="Logo SMKN 2 Yogyakarta" class="logo">
+                    <div class="logo-text">Portfolio Ijul</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="dkv.html">Home</a></li>
+                    <li><a href="dkv.html#teachers">Skills</a></li>
+                    <li><a href="dkv.html#activities">Galeri</a></li>
+                    <li><a href="dkv.html#contact">Contact Me</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Galeri Videografi -->
+    <section class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Videografi</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <video class="gallery-video">
+                        <source src="3 videografi/WhatsApp Video 2026-02-03 at 23.35.26.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                             <h3 class="gallery-title">Pemandangan</h3>
+                            <p class="gallery-author"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <video class="gallery-video">
+                        <source src="3 videografi/WhatsApp Video 2026-02-04 at 09.13.08.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                             <h3 class="gallery-title">Dokumentasi</h3>
+                            <p class="gallery-author"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <video class="gallery-video">
+                        <source src="3 videografi/WhatsApp Video 2026-02-04 at 08.59.46.mp4" type="video/mp4">
+                        Browser Anda tidak mendukung tag video.
+                    </video>
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                             <h3 class="gallery-title">Pemandangan Alam</h3>
+                            <p class="gallery-author"></p>
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Portfolio Ijul</h3>
+                    <p>Hasil karya desain komunikasi visual.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ijul. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for larger video -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <video class="modal-content" id="modalVideo" controls>
+            Browser Anda tidak mendukung tag video.
+        </video>
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Function to generate video thumbnail
+        function generateThumbnail(videoSrc, callback) {
+            const video = document.createElement('video');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            video.crossOrigin = 'anonymous';
+            video.src = videoSrc;
+            video.currentTime = 1; // Seek to 1 second
+            
+            video.addEventListener('seeked', () => {
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const thumbnail = canvas.toDataURL('image/jpeg');
+                callback(thumbnail);
+            });
+            
+            video.addEventListener('error', () => {
+                callback(null); // Fallback if error
+            });
+            
+            video.load();
+        }
+
+        // Generate thumbnails for all videos
+        document.querySelectorAll('.gallery-video').forEach(video => {
+            const src = video.querySelector('source').src;
+            generateThumbnail(src, (thumbnail) => {
+                if (thumbnail) {
+                    video.poster = thumbnail;
+                }
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalVid = document.getElementById('modalVideo');
+        const captionText = document.getElementById('caption');
+        const closeBtn = document.querySelector('.close');
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const vid = this.querySelector('video');
+                const title = this.querySelector('.gallery-title').textContent;
+                const author = this.querySelector('.gallery-author').textContent;
+                
+                modal.style.display = 'block';
+                modalVid.src = vid.querySelector('source').src;
+                modalVid.poster = vid.poster;
+                captionText.innerHTML = `<h3>${title}</h3><p>${author}</p>`;
+                modalVid.load();
+                modalVid.play();
+            });
+        });
+
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+            modalVid.pause();
+            modalVid.currentTime = 0;
+            modalVid.src = ''; // Clear src to stop loading
+        });
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+                modalVid.pause();
+                modalVid.currentTime = 0;
+                modalVid.src = ''; // Clear src to stop loading
+            }
+        });
+    </script>
+</body>
+</html>

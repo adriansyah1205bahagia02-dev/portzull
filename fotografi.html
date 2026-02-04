@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotografi - Portfolio Ijul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dkv.css">
+</head>
+<body>
+    <!-- Header dan Navigasi -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="Logo Sistem/logo new.png" alt="Logo SMKN 2 Yogyakarta" class="logo">
+                    <div class="logo-text">Portfolio Ijul</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="dkv.html">Home</a></li>
+                    <li><a href="dkv.html#teachers">Skills</a></li>
+                    <li><a href="dkv.html#activities">Galeri</a></li>
+                    <li><a href="dkv.html#contact">Contact Me</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Galeri Fotografi -->
+    <section class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Fotografi</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="2 fotografi/potrait2.jpg" alt="Foto 1">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="2 fotografi/foto masjid.jpg" alt="Foto 2">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="2 fotografi/potrait1.jpg" alt="Foto 3">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="2 fotografi/burung.jpg" alt="Foto 4">
+                </div>
+
+                <div class="gallery-item">
+                    <img src="2 fotografi/bunga.jpg" alt="Foto 4">
+                </div>
+                
+        
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Portfolio Ijul</h3>
+                    <p>Hasil karya desain komunikasi visual.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ijul. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for larger image -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const captionText = document.getElementById('caption');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        document.querySelectorAll('.gallery-item img').forEach(img => {
+            img.addEventListener('click', function() {
+                console.log('Image clicked:', this.src);
+                const title = this.closest('.gallery-item').querySelector('.gallery-title')?.textContent || '';
+                const author = this.closest('.gallery-item').querySelector('.gallery-author')?.textContent || '';
+                
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+                captionText.innerHTML = `<h3>${title}</h3><p>${author}</p>`;
+            });
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desain Grafis - Portfolio Ijul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dkv.css">
+</head>
+<body>
+    <!-- Header dan Navigasi -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo-container">
+                    <img src="Logo Sistem/logo new.png" alt="Logo SMKN 2 Yogyakarta" class="logo">
+                    <div class="logo-text">Portfolio Ijul</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="dkv.html">Home</a></li>
+                    <li><a href="dkv.html#teachers">Skills</a></li>
+                    <li><a href="dkv.html#activities">Galeri</a></li>
+                    <li><a href="dkv.html#contact">Contact Me</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Galeri Desain Grafis -->
+    <section class="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Desain Grafis</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="1`. desain grafis/poster.jpg" alt="Poster 1">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h3 class="gallery-title">Poster Event</h3>
+                            <p class="gallery-author">Desain untuk acara sekolah</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="1`. desain grafis/logo new.png" alt="Logo 1">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h3 class="gallery-title">Logo Brand</h3>
+                            <p class="gallery-author">Identitas merek untuk bisnis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="1`. desain grafis/poster3.jpg" alt="Banner 1">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h3 class="gallery-title">Banner Promosi</h3>
+                            <p class="gallery-author">Desain untuk iklan produk</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/design4/400/400.jpg" alt="Infographic 1">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h3 class="gallery-title">Infographic</h3>
+                            <p class="gallery-author">Visualisasi data yang informatif</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/seed/design4/400/400.jpg" alt="Infographic 1">
+                    <div class="gallery-overlay">
+                        <div class="gallery-text">
+                            <h3 class="gallery-title">Infographic</h3>
+                            <p class="gallery-author">Visualisasi data yang informatif</p>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Portfolio Ijul</h3>
+                    <p>Hasil karya desain komunikasi visual.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Ijul. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for larger image -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const captionText = document.getElementById('caption');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                const title = this.querySelector('.gallery-title').textContent;
+                const author = this.querySelector('.gallery-author').textContent;
+                
+                modal.style.display = 'block';
+                modalImg.src = img.src;
+                captionText.innerHTML = `<h3>${title}</h3><p>${author}</p>`;
+            });
+        });
+
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
